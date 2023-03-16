@@ -5,7 +5,7 @@
 
 :root {
   --cell-size: 100px;
-  --mark-size: cal(var(--cell-size)*0.9);
+  --mark-size: calc(var(--cell-size)*0.9);
 }
 
 body {
@@ -27,6 +27,11 @@ body {
   width: var(--cell-size);
   height: var(--cell-size);
   border: black 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
 }
 
 
@@ -46,4 +51,66 @@ body {
 
 .cell:nth-child(n+7) {
   border-bottom: none;
+}
+
+.cell.x::before,
+.cell.x::after,
+.cell.circle::before {
+  background-color: black;
+}
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  background-color: lightgray;
+
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--mark-size)* .15);
+  height: var(--mark-size);
+
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before {
+  transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  transform: rotate(-45deg);
+}
+
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  border-radius: 50%;
+  position: absolute;
+
+}
+
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+}
+
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  width: calc(var(--mark-size)*.7);
+  height: calc(var(--mark-size)*.7);
+  background-color: white;
+}
+
+.cell.x,
+.cell.circle {
+  cursor: not-allowed;
 }
